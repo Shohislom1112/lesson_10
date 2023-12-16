@@ -1,32 +1,32 @@
-const todosDiv = document.querySelector(".cards.todos");
+const todosDiv = document.querySelector(".cards.posts");
 const spanHeading = document.querySelector(".heading1 span");
 
-async function fetchTodos() {
+async function fetchPosts() {
   let id = JSON.parse(localStorage.getItem("userId"));
   spanHeading.innerHTML = id;
   try {
-    let res = await fetch("https://jsonplaceholder.typicode.com/todos");
+    let res = await fetch("https://jsonplaceholder.typicode.com/posts");
     let data = await res.json();
-    let filteredData = data.filter((td) => td.userId === id);
-    displayTodos(filteredData);
+    let filteredData = data.filter((ps) => ps.userId === id);
+    displayPosts(filteredData);
   } catch (error) {
     console.log(error);
   }
 }
 
-fetchTodos();
+fetchPosts();
 
-function displayTodos(todos) {
+function fetchPosts(posts) {
   let str = "";
 
-  todos.map((todo) => {
+  posts.map((posts) => {
     str += `
       <div class='card-t'>
-        <h2>Title: ${todo.title}</h2>
-        <p>Completed: ${todo.completed ? "✅" : "❌"}</p>
+        <p>Title: ${posts.title}</p>
+        <p>Body: ${posts.body} </p>
       </div>
     `;
   });
 
-  todosDiv.innerHTML = str;
+  postsDiv.innerHTML = str;
 }
